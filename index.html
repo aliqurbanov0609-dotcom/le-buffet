@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#120b08">
+<meta name="description" content="Le Buffet — Bistro · Wine · Coffee">
+<title>Le Buffet — Bistro · Wine · Coffee</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Parisienne&display=swap');
+
+:root{
+  --bg:#120b08; --bg2:#21130d; --gold:#e6bd68; --gold2:#ffe2a0;
+  --cream:#f7edd9; --muted:#cbbca4; --glass:rgba(35,22,15,.62);
+  --line:rgba(255,218,153,.34); --shadow:0 20px 70px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--cream);font-family:Inter,system-ui,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+.app{min-height:100svh;position:relative;overflow:hidden}
+.app:before{content:"";position:fixed;inset:0;z-index:-2;background:
+ radial-gradient(circle at 20% 20%,rgba(224,165,77,.14),transparent 28%),
+ radial-gradient(circle at 80% 70%,rgba(255,190,75,.09),transparent 30%),
+ linear-gradient(135deg,#100907,#24140c 50%,#0e0907)}
+.app:after{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(rgba(10,5,3,.18),rgba(10,5,3,.66));pointer-events:none}
+.screen{min-height:100svh;padding:22px 18px 105px;position:relative}
+.cover{display:grid;place-items:center;text-align:center;padding:24px 20px}
+.cover-bg{position:absolute;inset:0;background:
+ linear-gradient(rgba(18,8,4,.38),rgba(18,8,4,.78)),
+ url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1400&q=85') center/cover}
+.cover-content{position:relative;z-index:2;width:min(560px,100%);margin:auto}
+.logo-mark{font-size:32px;color:var(--gold2);line-height:1}
+.logo{font:600 clamp(58px,15vw,92px)/.9 "Cormorant Garamond",serif;letter-spacing:-2px;color:#f9e8c2;text-shadow:0 4px 30px #000}
+.subtitle{font-size:11px;letter-spacing:4px;margin-top:16px;color:#f5dfb5}
+.ornament{color:var(--gold);font-size:28px;margin:16px 0}
+.tagline{font:400 34px "Parisienne",cursive;color:#f7dfad}
+.lang{display:flex;gap:5px;padding:5px;border:1px solid var(--line);border-radius:999px;background:rgba(15,9,6,.45);backdrop-filter:blur(16px);width:max-content;margin:26px auto}
+.lang button,.chip{border:0;background:transparent;color:#d9c9ae;padding:9px 15px;border-radius:999px}
+.lang button.active,.chip.active{background:linear-gradient(135deg,#f6d889,#b98432);color:#25160a;box-shadow:0 5px 20px rgba(229,180,83,.24)}
+.primary{border:1px solid rgba(255,231,174,.7);background:linear-gradient(135deg,#f3cf7c,#b67c2e);color:#23150a;font-weight:800;padding:17px 24px;border-radius:999px;box-shadow:0 12px 35px rgba(214,154,50,.24)}
+.primary:active{transform:scale(.98)}
+.glass{background:linear-gradient(145deg,rgba(50,31,20,.68),rgba(17,10,7,.5));border:1px solid var(--line);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:var(--shadow)}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:20;padding:6px 0 14px}
+.back,.icon-btn{border:1px solid var(--line);background:rgba(20,12,8,.58);color:var(--cream);border-radius:999px;padding:10px 14px;backdrop-filter:blur(14px)}
+.small-logo{text-align:center;font:600 28px "Cormorant Garamond",serif;color:var(--gold2)}
+.small-logo span{display:block;font:500 7px Inter;letter-spacing:3px;color:#d8c5a3}
+.hero-title{font:600 44px/1 "Cormorant Garamond",serif;margin:18px 0 6px}
+.hero-sub{color:var(--muted);font-size:13px;margin:0 0 20px}
+.choice{display:grid;gap:16px;margin-top:22px}
+.choice-card{position:relative;min-height:250px;border-radius:26px;overflow:hidden;padding:22px;display:flex;align-items:end;text-align:left;background-size:cover;background-position:center;border:1px solid var(--line);box-shadow:var(--shadow)}
+.choice-card:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 20%,rgba(10,5,3,.9))}
+.choice-card>*{position:relative;z-index:2}
+.choice-kitchen{background-image:url('https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1000&q=85')}
+.choice-bar{background-image:url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1000&q=85')}
+.choice-title{font:600 39px "Cormorant Garamond",serif}
+.choice-desc{font-size:12px;color:#ddceb5;margin:3px 0 10px}
+.arrow{position:absolute;right:20px;bottom:20px;font-size:25px;color:var(--gold2)}
+.search{display:flex;gap:9px;padding:10px 12px;border-radius:18px;margin:12px 0}
+.search input{min-width:0;flex:1;background:transparent;border:0;outline:0;color:var(--cream);font-size:15px}
+.search input::placeholder{color:#a99a86}
+.chips{display:flex;gap:8px;overflow:auto;padding:3px 0 13px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{white-space:nowrap;border:1px solid var(--line);background:rgba(42,26,17,.6)}
+.menu-list{display:grid;gap:10px}
+.dish-card{display:grid;grid-template-columns:86px 1fr auto;gap:12px;align-items:center;padding:10px;border-radius:20px;min-height:96px}
+.dish-img{width:86px;height:86px;border-radius:16px;object-fit:cover}
+.dish-name{font:600 22px/1 "Cormorant Garamond",serif;margin-bottom:5px}
+.dish-desc{font-size:11px;line-height:1.35;color:#bcae99;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.price{font-weight:700;color:var(--gold2);white-space:nowrap}
+.time{font-size:10px;color:#a99b87;margin-top:8px}
+.badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.badge{font-size:9px;padding:4px 7px;border-radius:999px;border:1px solid rgba(255,214,132,.35);color:#e5c985;background:rgba(255,197,82,.08)}
+.service{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:30;white-space:nowrap;font-size:10px;letter-spacing:2px;color:#d8c59d;padding:9px 16px;border-radius:999px;background:rgba(22,12,7,.82);border:1px solid var(--line);backdrop-filter:blur(14px)}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(4,2,1,.72);display:flex;align-items:end;justify-content:center;padding:10px}
+.modal-box{width:min(620px,100%);max-height:94svh;overflow:auto;border-radius:30px 30px 20px 20px}
+.modal-img{width:100%;height:300px;object-fit:cover;border-radius:29px 29px 0 0}
+.modal-body{padding:20px}
+.modal-title{font:600 42px/1 "Cormorant Garamond",serif}
+.modal-price{font-size:22px;color:var(--gold2);font-weight:800}
+.close{float:right;border:1px solid var(--line);background:rgba(20,10,6,.55);color:#fff;border-radius:50%;width:40px;height:40px}
+.divider{height:1px;background:var(--line);margin:16px 0}
+.detail-text{font-size:13px;color:#d0c0a9;line-height:1.6}
+.meta{display:flex;justify-content:space-between;gap:10px;margin:14px 0;color:#d4c2a3}
+.empty{text-align:center;padding:50px 20px;color:#a99b87}
+.fade{animation:fade .35s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(min-width:700px){.choice{grid-template-columns:1fr 1fr}.screen{padding-left:28px;padding-right:28px}.modal{align-items:center}.modal-box{border-radius:30px}}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<script>
+const IMG = {
+  caesar:'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?auto=format&fit=crop&w=900&q=85',
+  greek:'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=900&q=85',
+  soup:'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=900&q=85',
+  breakfast:'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=900&q=85',
+  crepe:'https://images.unsplash.com/photo-1519671282421-6b4c1c1f4a3b?auto=format&fit=crop&w=900&q=85',
+  steak:'https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=900&q=85',
+  pizza:'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=85',
+  sandwich:'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=900&q=85',
+  lemonade:'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=900&q=85',
+  mojito:'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=900&q=85',
+  wine:'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=900&q=85',
+  coffee:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=85'
+};
+const T = {
+ az:{continue:'DAVAM ETMƏK ÜÇÜN TOXUNUN', kitchen:'MƏTBƏX', bar:'BAR', kitchenSub:'Ləzzətin Ünvanı', barSub:'Qədəhdəki Hekayə', search:'Menyuda axtar...', all:'Hamısı', back:'Geri', service:'SERVİS HAQQI 10%', popular:'Populyar', chef:'Şef tövsiyəsi', veg:'Vegetarian', min:'dəq', ingredients:'Tərkibi:', no:'Nəticə tapılmadı'},
+ ru:{continue:'КОСНИТЕСЬ, ЧТОБЫ ПРОДОЛЖИТЬ', kitchen:'КУХНЯ', bar:'БАР', kitchenSub:'С пылу, с жару', barSub:'Здесь наливают счастье', search:'Поиск по меню...', all:'Все', back:'Назад', service:'СЕРВИСНЫЙ СБОР 10%', popular:'Популярное', chef:'Рекомендация шефа', veg:'Вегетарианское', min:'мин', ingredients:'Состав:', no:'Ничего не найдено'},
+ en:{continue:'TAP TO CONTINUE', kitchen:'KITCHEN', bar:'BAR', kitchenSub:'From Fire to Table', barSub:'Sip the Story', search:'Search menu...', all:'All', back:'Back', service:'SERVICE CHARGE 10%', popular:'Popular', chef:"Chef's choice", veg:'Vegetarian', min:'min', ingredients:'Ingredients:', no:'No results'}
+};
+const categories = {
+ kitchen:[
+  ['salads','Салаты'],['soups','Супы'],['breakfast','Завтраки'],['cold','Холодные закуски'],
+  ['crepes','Блины / Крепы'],['mains','Основные блюда'],['pizza','Пиццы / Киши'],['sandwiches','Сэндвичи']
+ ],
+ bar:[['juices','Соки / Лимонады'],['cocktails','Коктейли'],['wine','Вина'],['coffee','Чай / Кофе']]
+};
+const menu=[
+ {id:1,type:'kitchen',cat:'salads',img:IMG.caesar,price:14.90,time:15,tags:['popular','chef'],n:{az:'Klassik Sezar salatı',ru:'Классический салат Цезарь',en:'Classic Caesar Salad'},i:{az:'Toyuq filesi, romaine salatı, karaviz, parmesan pendiri, kruton, Sezar sousu, yumurta, pomidor.',ru:'Куриное филе, ромэн, сельдерей, пармезан, крутоны, соус Цезарь, яйцо, помидор.',en:'Chicken fillet, romaine lettuce, celery, parmesan, croutons, Caesar dressing, egg, tomato.'}},
+ {id:2,type:'kitchen',cat:'salads',img:IMG.greek,price:11.90,time:10,tags:['veg'],n:{az:'Yunan salatı',ru:'Греческий салат',en:'Greek Salad'},i:{az:'Pomidor, xiyar, feta, zeytun, soğan, zeytun yağı.',ru:'Помидоры, огурцы, фета, оливки, лук, оливковое масло.',en:'Tomato, cucumber, feta, olives, onion, olive oil.'}},
+ {id:3,type:'kitchen',cat:'soups',img:IMG.soup,price:7.50,time:20,tags:['popular','veg'],n:{az:'Karaviz şorbası',ru:'Суп из сельдерея',en:'Celery Soup'},i:{az:'Karaviz, kartof, soğan, qaymaq, tərəvəz bulyonu.',ru:'Сельдерей, картофель, лук, сливки, овощной бульон.',en:'Celery, potato, onion, cream, vegetable stock.'}},
+ {id:4,type:'kitchen',cat:'breakfast',img:IMG.breakfast,price:13.50,time:15,tags:['popular'],n:{az:'Fransız səhər yeməyi',ru:'Французский завтрак',en:'French Breakfast'},i:{az:'Yumurta, kruassan, pendir, kərə yağı, mürəbbə, meyvə.',ru:'Яйца, круассан, сыр, сливочное масло, джем, фрукты.',en:'Eggs, croissant, cheese, butter, jam, fruit.'}},
+ {id:5,type:'kitchen',cat:'crepes',img:IMG.crepe,price:9.90,time:12,tags:['veg'],n:{az:'Krep Suzette',ru:'Креп Сюзетт',en:'Crêpe Suzette'},i:{az:'Nazik krep, portağal, kərə yağı, şəkər, vanil.',ru:'Тонкий креп, апельсин, сливочное масло, сахар, ваниль.',en:'Thin crêpe, orange, butter, sugar, vanilla.'}},
+ {id:6,type:'kitchen',cat:'mains',img:IMG.steak,price:28.90,time:25,tags:['chef','popular'],n:{az:'Şefin bifşteksi',ru:'Стейк от шефа',en:"Chef's Steak"},i:{az:'Mal əti, rozmarin, kərə yağı, qara istiot, tərəvəz qarniri.',ru:'Говядина, розмарин, сливочное масло, чёрный перец, овощной гарнир.',en:'Beef, rosemary, butter, black pepper, seasonal vegetables.'}},
+ {id:7,type:'kitchen',cat:'pizza',img:IMG.pizza,price:16.90,time:18,tags:['popular'],n:{az:'Pizza Margherita',ru:'Пицца Маргарита',en:'Pizza Margherita'},i:{az:'Pomidor sousu, mozzarella, reyhan, zeytun yağı.',ru:'Томатный соус, моцарелла, базилик, оливковое масло.',en:'Tomato sauce, mozzarella, basil, olive oil.'}},
+ {id:8,type:'kitchen',cat:'sandwiches',img:IMG.sandwich,price:12.90,time:10,tags:[],n:{az:'Croque Monsieur',ru:'Крок-месье',en:'Croque Monsieur'},i:{az:'Çörək, vetçina, gruyère pendiri, beşamel sousu.',ru:'Хлеб, ветчина, сыр грюйер, соус бешамель.',en:'Bread, ham, Gruyère cheese, béchamel sauce.'}},
+ {id:9,type:'bar',cat:'juices',img:IMG.lemonade,price:6.50,time:5,tags:['veg'],n:{az:'Ev limonadı',ru:'Домашний лимонад',en:'House Lemonade'},i:{az:'Limon, nanə, şəkər siropu, qazlı su.',ru:'Лимон, мята, сахарный сироп, газированная вода.',en:'Lemon, mint, sugar syrup, sparkling water.'}},
+ {id:10,type:'bar',cat:'cocktails',img:IMG.mojito,price:12.90,time:7,tags:['popular'],n:{az:'Mojito',ru:'Мохито',en:'Mojito'},i:{az:'Rom, əhəng, nanə, şəkər siropu, soda.',ru:'Ром, лайм, мята, сахарный сироп, содовая.',en:'Rum, lime, mint, sugar syrup, soda.'}},
+ {id:11,type:'bar',cat:'wine',img:IMG.wine,price:18.00,time:3,tags:['chef'],n:{az:'Chardonnay',ru:'Шардоне',en:'Chardonnay'},i:{az:'Ağ şərab, 150 ml.',ru:'Белое вино, 150 мл.',en:'White wine, 150 ml.'}},
+ {id:12,type:'bar',cat:'coffee',img:IMG.coffee,price:5.50,time:4,tags:[],n:{az:'Cappuccino',ru:'Капучино',en:'Cappuccino'},i:{az:'Espresso, süd, süd köpüyü.',ru:'Эспрессо, молоко, молочная пена.',en:'Espresso, milk, milk foam.'}}
+];
+
+let lang=localStorage.getItem('lb_lang')||'az', state='cover', type='kitchen', cat='all', query='';
+const t=()=>T[lang];
+const trName=x=>x.n[lang], trIng=x=>x.i[lang];
+function esc(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function shell(content,cls=''){return `<main class="screen ${cls} fade">${content}</main><div class="service">${t().service}</div>`}
+function setLang(l){lang=l;localStorage.setItem('lb_lang',l);render()}
+function cover(){
+ return `<main class="screen cover"><div class="cover-bg"></div><div class="cover-content">
+   <div class="logo-mark">⚜</div><div class="logo">Le Buffet</div><div class="subtitle">BISTRO · WINE · COFFEE</div>
+   <div class="ornament">— ❦ —</div><div class="tagline">Un coin de plaisir</div>
+   <div class="lang">${['az','ru','en'].map(x=>`<button class="${lang===x?'active':''}" onclick="setLang('${x}')">${x.toUpperCase()}</button>`).join('')}</div>
+   <button class="primary" onclick="state='choice';render()">${t().continue}　›</button>
+ </div></main>`
+}
+function choice(){
+ return shell(`<div class="topbar"><button class="back" onclick="state='cover';render()">← ${t().back}</button><div class="small-logo">Le Buffet<span>BISTRO · WINE · COFFEE</span></div><div style="width:72px"></div></div>
+ <div style="text-align:center"><div class="ornament">❦</div><h1 class="hero-title">Un coin de plaisir</h1><p class="hero-sub">${lang==='az'?'Hansı atmosferdə olmağınızı istəyirsiniz?':lang==='ru'?'Какое настроение выбираете?':'Choose your mood.'}</p></div>
+ <div class="choice">
+  <button class="choice-card choice-kitchen" onclick="openMenu('kitchen')"><div><div class="choice-title">${t().kitchen}</div><div class="choice-desc">${t().kitchenSub}</div><small>From Fire to Table · С пылу, с жару</small></div><span class="arrow">›</span></button>
+  <button class="choice-card choice-bar" onclick="openMenu('bar')"><div><div class="choice-title">${t().bar}</div><div class="choice-desc">${t().barSub}</div><small>Sip the Story · Здесь наливают счастье</small></div><span class="arrow">›</span></button>
+ </div>`)
+}
+function openMenu(k){type=k;cat='all';query='';state='menu';render()}
+function menuScreen(){
+ const title=type==='kitchen'?t().kitchen:t().bar;
+ const listCats=categories[type];
+ let items=menu.filter(x=>x.type===type);
+ if(cat!=='all')items=items.filter(x=>x.cat===cat);
+ if(query.trim()){const q=query.toLowerCase();items=items.filter(x=>(trName(x)+' '+trIng(x)).toLowerCase().includes(q))}
+ return shell(`<div class="topbar"><button class="back" onclick="state='choice';render()">← ${t().back}</button><div class="small-logo">Le Buffet<span>BISTRO · WINE · COFFEE</span></div><button class="icon-btn" onclick="state='cover';render()">⌂</button></div>
+ <div style="text-align:center"><div class="ornament" style="margin:4px 0">❦</div><h1 class="hero-title">${title}</h1></div>
+ <div class="glass search">⌕<input value="${esc(query)}" oninput="query=this.value;render()" placeholder="${t().search}"><span>☷</span></div>
+ <div class="chips"><button class="chip ${cat==='all'?'active':''}" onclick="cat='all';render()">${t().all}</button>${listCats.map(c=>`<button class="chip ${cat===c[0]?'active':''}" onclick="cat='${c[0]}';render()">${c[1]}</button>`).join('')}</div>
+ <div class="menu-list">${items.length?items.map(card).join(''):`<div class="empty">${t().no}</div>`}</div>`)
+}
+function card(x){
+ return `<button class="glass dish-card" onclick="openDish(${x.id})"><img class="dish-img" src="${x.img}" alt=""><div style="text-align:left"><div class="dish-name">${esc(trName(x))}</div><div class="dish-desc">${esc(trIng(x))}</div><div class="badges">${x.tags.map(tag=>`<span class="badge">${tag==='popular'?'🔥 '+t().popular:tag==='chef'?'★ '+t().chef:'● '+t().veg}</span>`).join('')}</div></div><div><div class="price">${x.price.toFixed(2)} ₼</div><div class="time">◷ ${x.time} ${t().min}</div></div></button>`
+}
+function openDish(id){const x=menu.find(a=>a.id===id);document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="modal" onclick="if(event.target.id==='modal')closeDish()"><div class="modal-box glass fade"><img class="modal-img" src="${x.img}" alt=""><div class="modal-body"><button class="close" onclick="closeDish()">×</button><div class="badges">${x.tags.map(tag=>`<span class="badge">${tag==='popular'?'🔥 '+t().popular:tag==='chef'?'★ '+t().chef:'● '+t().veg}</span>`).join('')}</div><div class="modal-title">${esc(trName(x))}</div><div class="meta"><span>◷ ${x.time} ${t().min}</span><span class="modal-price">${x.price.toFixed(2)} ₼</span></div><div class="divider"></div><b>${t().ingredients}</b><p class="detail-text">${esc(trIng(x))}</p><button class="primary" style="width:100%;margin-top:10px" onclick="closeDish()">✓ ${lang==='az'?'BAĞLA':lang==='ru'?'ЗАКРЫТЬ':'CLOSE'}</button></div></div></div>`)}
+function closeDish(){document.getElementById('modal')?.remove()}
+function render(){document.getElementById('app').innerHTML=state==='cover'?cover():state==='choice'?choice():menuScreen()}
+render();
+</script>
+</body>
+</html>
