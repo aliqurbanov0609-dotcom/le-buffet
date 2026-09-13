@@ -1,1498 +1,1092 @@
-<!DOCTYPE html><html lang="az">
+<!DOCTYPE html>
+<html lang="az">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">  <meta name="theme-color" content="#0d1a8a">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">  <title>Le Buffet Menu</title>  <link rel="icon" href="images/logo.png">
-  <link rel="apple-touch-icon" href="images/logo.png">  <!-- Google Fonts -->  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">  <style>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    :root {
-      --bg: #fefcf6;
-      --dark: #171717;
-      --blue: #0d1a8a;
-      --gold: #d4af37;
-      --white: #ffffff;
-      --muted: rgba(255,255,255,.65);
-      --font-logo: "Great Vibes", cursive;
-      --font-main: "Inter", sans-serif;
-    }
+<title>Le Buffet — Menu</title>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
 
-    html,
-    body {
-      width: 100%;
-      min-height: 100%;
-      background: var(--bg);
-      font-family: var(--font-main);
-    }
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    background: #17110d;
+    font-family: Georgia, "Times New Roman", serif;
+}
 
-    body {
-      display: flex;
-      justify-content: center;
-      overflow-x: hidden;
-    }
+body {
+    overflow-x: hidden;
+    color: #f8eee0;
+}
 
-    button,
-    input {
-      font-family: inherit;
-    }
+/* =========================
+   APP
+========================= */
 
-    button {
-      -webkit-appearance: none;
-      appearance: none;
-    }
+#app {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
 
-    /* =========================
-       MAIN CONTAINER
-    ========================= */
+/* =========================
+   SCREENS
+========================= */
 
-    .app-container {
-      width: 100%;
-      max-width: 430px;
-      min-height: 100vh;
-      min-height: 100dvh;
-      position: relative;
-      overflow: hidden;
-      background: #000;
-      box-shadow: 0 0 30px rgba(0,0,0,.25);
-    }
+.screen {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    display: none;
+    overflow: hidden;
+}
 
-    /* =========================
-       SCREENS
-    ========================= */
+.screen.active {
+    display: block;
+}
 
+/* =========================
+   COVER
+========================= */
+
+#cover {
+    background-image: url("cover.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    cursor: pointer;
+}
+
+#cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.12),
+            rgba(0,0,0,.04) 45%,
+            rgba(0,0,0,.35)
+        );
+    pointer-events: none;
+}
+
+.cover-touch {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+}
+
+/* =========================
+   LANGUAGE
+========================= */
+
+.language {
+    position: absolute;
+    left: 50%;
+    bottom: 8%;
+    transform: translateX(-50%);
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    letter-spacing: 5px;
+    white-space: nowrap;
+}
+
+.language button {
+    border: 0;
+    background: transparent;
+    color: #fff6e9;
+    font: inherit;
+    letter-spacing: inherit;
+    cursor: pointer;
+    padding: 5px;
+    opacity: .6;
+}
+
+.language button.active {
+    opacity: 1;
+    text-shadow: 0 0 12px rgba(255,235,190,.8);
+}
+
+/* =========================
+   COVER CTA
+========================= */
+
+.cover-cta {
+    position: absolute;
+    left: 50%;
+    bottom: 3%;
+    transform: translateX(-50%);
+    z-index: 10;
+
+    width: 90%;
+    text-align: center;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #fff4df;
+}
+
+/* =========================
+   CHOICE SCREEN
+========================= */
+
+#choice {
+    background-image: url("choice.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+#choice::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 10, 5, .08);
+    pointer-events: none;
+}
+
+.choice-content {
+    position: relative;
+    z-index: 5;
+
+    min-height: 100vh;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.choice-language {
+    position: absolute;
+    top: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Invisible buttons placed exactly over
+   the MƏTBƏX and BAR areas of the image */
+
+.choice-button {
+    position: absolute;
+    left: 13%;
+    width: 74%;
+    height: 16%;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.kitchen-button {
+    top: 31%;
+}
+
+.bar-button {
+    top: 53%;
+}
+
+/* =========================
+   MENU SCREEN
+========================= */
+
+#menu {
+    background:
+        linear-gradient(rgba(42,25,15,.92), rgba(42,25,15,.96)),
+        url("choice.jpg") center/cover fixed;
+    min-height: 100vh;
+}
+
+.menu-inner {
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    padding: 25px 18px 40px;
+}
+
+.menu-header {
+    text-align: center;
+    padding: 10px 0 25px;
+}
+
+.menu-logo {
+    font-size: 44px;
+    font-style: italic;
+    font-weight: normal;
+    color: #f8e8cc;
+}
+
+.menu-subtitle {
+    margin-top: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: #d9c1a0;
+}
+
+.menu-title {
+    margin-top: 20px;
+    font-size: 34px;
+    letter-spacing: 3px;
+    color: #fff3df;
+}
+
+.menu-category {
+    margin-top: 15px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #d7b98f;
+}
+
+/* =========================
+   CATEGORY LIST
+========================= */
+
+.categories {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.category {
+    width: 100%;
+    min-height: 64px;
+
+    border: 1px solid rgba(232,205,165,.6);
+    border-radius: 35px;
+
+    background: rgba(30,18,11,.72);
+    backdrop-filter: blur(8px);
+
+    color: #f9ead4;
+    padding: 12px 20px;
+
+    text-align: center;
+    font-family: Georgia, serif;
+    font-size: 20px;
+
+    cursor: pointer;
+    transition: .2s;
+}
+
+.category:active {
+    transform: scale(.97);
+    background: rgba(255,225,185,.18);
+}
+
+/* =========================
+   DISHES
+========================= */
+
+.dishes {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dishes.active {
+    display: flex;
+}
+
+.dish {
+    border: 1px solid rgba(230,202,160,.4);
+    border-radius: 18px;
+
+    background: rgba(25,15,9,.82);
+    padding: 17px;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.dish-info {
+    flex: 1;
+}
+
+.dish-name {
+    font-size: 20px;
+    color: #fff0d8;
+}
+
+.dish-description {
+    margin-top: 7px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #cbb79d;
+}
+
+.dish-price {
+    white-space: nowrap;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #e4c18e;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.back-button {
+    width: 100%;
+    margin-bottom: 15px;
+
+    border: 1px solid rgba(232,205,165,.5);
+    border-radius: 30px;
+
+    background: rgba(20,12,7,.7);
+    color: #f5dfc1;
+
+    padding: 13px;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.home-button {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+
+    width: 46px;
+    height: 46px;
+
+    border: 1px solid rgba(255,230,190,.6);
+    border-radius: 50%;
+
+    background: rgba(20,12,7,.85);
+    color: #fff0d8;
+
+    z-index: 100;
+    cursor: pointer;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (min-width: 700px) {
     .screen {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
+        max-width: 600px;
+        margin: auto;
     }
 
-    .screen.active {
-      display: flex;
+    body {
+        background: #0e0906;
     }
+}
+</style>
+</head>
 
-    /* =========================
-       LANGUAGE SWITCHER
-    ========================= */
+<body>
 
-    .language-switcher {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 5px 7px;
-      border-radius: 30px;
-      background: rgba(0,0,0,.42);
-      border: 1px solid rgba(255,255,255,.18);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
+<div id="app">
 
-    .lang-btn {
-      border: 0;
-      background: transparent;
-      color: rgba(255,255,255,.55);
-      padding: 6px 9px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-    }
+    <!-- =====================
+         SCREEN 1 — COVER
+    ====================== -->
 
-    .lang-btn.active {
-      color: #fff;
-      background: rgba(255,255,255,.18);
-    }
+    <section id="cover" class="screen active">
 
-    /* =========================
-       SCREEN 1
-    ========================= */
+        <div class="cover-touch" onclick="openChoice()"></div>
 
-    #splash-screen {
-      background-image: url("673.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      cursor: pointer;
-    }
+        <div class="language">
+            <button id="langAZ" class="active" onclick="setLanguage('az'); event.stopPropagation();">
+                AZ
+            </button>
 
-    .splash-top {
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
-      padding: 24px 20px;
-      z-index: 5;
-    }
+            <span>•</span>
 
-    .splash-bottom {
-      margin-top: auto;
-      width: 100%;
-      padding: 30px 24px 38px;
-      text-align: center;
-      background: linear-gradient(
-        to top,
-        rgba(0,0,0,.65),
-        rgba(0,0,0,0)
-      );
-    }
+            <button id="langRU" onclick="setLanguage('ru'); event.stopPropagation();">
+                RU
+            </button>
 
-    .touch-hint {
-      color: rgba(255,255,255,.9);
-      font-size: 11px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
+            <span>•</span>
 
-    /* =========================
-       SCREEN 2
-    ========================= */
+            <button id="langEN" onclick="setLanguage('en'); event.stopPropagation();">
+                EN
+            </button>
+        </div>
 
-    #choice-screen {
-      background-image: url("674.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
+        <div
+            id="coverCTA"
+            class="cover-cta"
+            onclick="openChoice(); event.stopPropagation();">
+            DAVAM ETMƏK ÜÇÜN TOXUNUN
+        </div>
 
-    .choice-language {
-      position: absolute;
-      top: 24px;
-      right: 20px;
-      z-index: 20;
-    }
+    </section>
 
-    /*
-      Transparent buttons placed over
-      the two areas of 674.png.
-    */
 
-    .choice-button {
-      position: absolute;
-      left: 8%;
-      width: 84%;
-      height: 18%;
-      border: 0;
-      background: transparent;
-      cursor: pointer;
-      z-index: 10;
-    }
+    <!-- =====================
+         SCREEN 2 — CHOICE
+    ====================== -->
 
-    #btn-kitchen {
-      top: 28%;
-    }
+    <section id="choice" class="screen">
 
-    #btn-bar {
-      top: 52%;
-    }
+        <div class="choice-content">
 
-    /* =========================
-       MENU SCREEN
-    ========================= */
+            <div class="language choice-language">
 
-    #menu-screen {
-      background: #101010;
-      color: #fff;
-      overflow-y: auto;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
-    }
+                <button id="choiceAZ"
+                        class="active"
+                        onclick="setLanguage('az')">
+                    AZ
+                </button>
 
-    #menu-screen::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: url("674.png");
-      background-size: cover;
-      background-position: center;
-      opacity: .08;
-      filter: blur(12px);
-      pointer-events: none;
-      z-index: 0;
-    }
+                <span>•</span>
 
-    .menu-inner {
-      position: relative;
-      z-index: 2;
-      min-height: 100%;
-      padding-bottom: 60px;
-    }
+                <button id="choiceRU"
+                        onclick="setLanguage('ru')">
+                    RU
+                </button>
 
-    /* =========================
-       HEADER
-    ========================= */
+                <span>•</span>
 
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      padding: 12px 14px;
-      background: rgba(12,12,12,.90);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
+                <button id="choiceEN"
+                        onclick="setLanguage('en')">
+                    EN
+                </button>
 
-    .header-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
+            </div>
 
-    .back-btn {
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.08);
-      color: #fff;
-      padding: 9px 14px;
-      border-radius: 22px;
-      font-size: 12px;
-      cursor: pointer;
-    }
+            <!-- Кнопка КУХНЯ -->
+            <button
+                class="choice-button kitchen-button"
+                onclick="openKitchen()"
+                aria-label="Kitchen">
+            </button>
 
-    .back-btn:active {
-      transform: scale(.97);
-    }
-
-    .menu-language {
-      margin-left: auto;
-    }
-
-    .search-box {
-      width: 100%;
-      margin-top: 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.07);
-      color: #fff;
-      border-radius: 12px;
-      padding: 11px 14px;
-      outline: none;
-      font-size: 13px;
-    }
-
-    .search-box::placeholder {
-      color: rgba(255,255,255,.4);
-    }
-
-    /* =========================
-       CATEGORIES
-    ========================= */
-
-    .categories-scroll {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      gap: 8px;
-      padding: 14px 14px 8px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .categories-scroll::-webkit-scrollbar {
-      display: none;
-    }
-
-    .cat-chip {
-      flex: 0 0 auto;
-      border: 1px solid rgba(255,255,255,.1);
-      background: rgba(255,255,255,.07);
-      color: rgba(255,255,255,.7);
-      padding: 9px 15px;
-      border-radius: 22px;
-      font-size: 12px;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-
-    .cat-chip.active {
-      background: var(--gold);
-      color: #111;
-      border-color: var(--gold);
-      font-weight: 700;
-    }
-
-    /* =========================
-       MENU ITEMS
-    ========================= */
-
-    .menu-items-list {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-      padding: 12px 14px 70px;
-    }
-
-    .food-card {
-      display: flex;
-      gap: 12px;
-      width: 100%;
-      padding: 11px;
-      border-radius: 16px;
-      background: rgba(28,28,28,.76);
-      border: 1px solid rgba(255,255,255,.09);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      cursor: pointer;
-      transition: transform .15s ease;
-    }
-
-    .food-card:active {
-      transform: scale(.985);
-    }
-
-    .food-img {
-      width: 82px;
-      height: 82px;
-      flex: 0 0 82px;
-      border-radius: 12px;
-      object-fit: cover;
-      background: #222;
-    }
-
-    .food-info {
-      min-width: 0;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .food-title {
-      color: #fff;
-      font-size: 15px;
-      line-height: 1.2;
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-
-    .food-desc {
-      color: rgba(255,255,255,.58);
-      font-size: 11px;
-      line-height: 1.35;
-      margin-bottom: 8px;
-    }
-
-    .food-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .food-price {
-      color: var(--gold);
-      font-size: 16px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .food-time {
-      color: rgba(255,255,255,.38);
-      font-size: 10px;
-      white-space: nowrap;
-    }
-
-    .empty-message {
-      text-align: center;
-      padding: 60px 20px;
-      color: rgba(255,255,255,.5);
-      font-size: 13px;
-    }
-
-    /* =========================
-       SERVICE FOOTER
-    ========================= */
-
-    .service-footer {
-      position: fixed;
-      left: 50%;
-      bottom: 0;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 430px;
-      z-index: 50;
-      text-align: center;
-      padding: 8px;
-      background: rgba(10,10,10,.92);
-      border-top: 1px solid rgba(255,255,255,.07);
-      color: var(--gold);
-      font-size: 10px;
-      letter-spacing: .08em;
-    }
-
-    /* =========================
-       DISH MODAL
-    ========================= */
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      display: none;
-      align-items: flex-end;
-      justify-content: center;
-      background: rgba(0,0,0,.82);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      width: 100%;
-      max-width: 430px;
-      max-height: 88vh;
-      overflow-y: auto;
-      padding: 18px;
-      background: #191919;
-      color: #fff;
-      border-radius: 24px 24px 0 0;
-      border-top: 1px solid rgba(255,255,255,.12);
-    }
-
-    .modal-img {
-      width: 100%;
-      height: 230px;
-      object-fit: cover;
-      border-radius: 16px;
-      margin-bottom: 16px;
-      background: #222;
-    }
-
-    .modal-title {
-      font-size: 23px;
-      line-height: 1.2;
-      margin-bottom: 8px;
-    }
-
-    .modal-description {
-      color: rgba(255,255,255,.65);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .modal-price {
-      color: var(--gold);
-      font-size: 21px;
-      font-weight: 700;
-      margin: 15px 0;
-    }
-
-    .close-btn {
-      width: 100%;
-      border: 0;
-      background: rgba(255,255,255,.1);
-      color: #fff;
-      padding: 13px;
-      border-radius: 12px;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    /* =========================
-       DESKTOP
-    ========================= */
-
-    @media (min-width: 431px) {
-      body {
-        background: #ddd;
-      }
-
-      .app-container {
-        min-height: 100vh;
-      }
-    }
-
-  </style></head><body><div class="app-container">  <!-- =====================================
-       SCREEN 1 — COVER
-  ====================================== -->  <section id="splash-screen" class="screen active"><div class="splash-top">
-  <div class="language-switcher" onclick="stopEvent(event)">
-    <button class="lang-btn active" data-lang="az" onclick="changeLanguage('az', event)">AZ</button>
-    <button class="lang-btn" data-lang="ru" onclick="changeLanguage('ru', event)">RU</button>
-    <button class="lang-btn" data-lang="en" onclick="changeLanguage('en', event)">EN</button>
-  </div>
-</div>
-
-<div class="splash-bottom">
-  <div class="touch-hint" id="touch-hint">
-    Davam etmək üçün toxunun
-  </div>
-</div>
-
-  </section>  <!-- =====================================
-       SCREEN 2 — KITCHEN / BAR
-  ====================================== -->  <section id="choice-screen" class="screen"><div class="choice-language">
-  <div class="language-switcher">
-    <button class="lang-btn" data-lang="az" onclick="changeLanguage('az', event)">AZ</button>
-    <button class="lang-btn" data-lang="ru" onclick="changeLanguage('ru', event)">RU</button>
-    <button class="lang-btn" data-lang="en" onclick="changeLanguage('en', event)">EN</button>
-  </div>
-</div>
-
-<!-- Invisible clickable areas over 674.png -->
-
-<button
-  id="btn-kitchen"
-  class="choice-button"
-  aria-label="Kitchen"
-  onclick="openMenu('kitchen', event)">
-</button>
-
-<button
-  id="btn-bar"
-  class="choice-button"
-  aria-label="Bar"
-  onclick="openMenu('bar', event)">
-</button>
-
-  </section>  <!-- =====================================
-       SCREEN 3 — MENU
-  ====================================== -->  <section id="menu-screen" class="screen"><div class="menu-inner">
-
-  <header class="header">
-
-    <div class="header-row">
-
-      <button
-        class="back-btn"
-        onclick="goBack(event)"
-        id="back-button">
-        ← Geri
-      </button>
-
-      <div class="menu-language">
-        <div class="language-switcher">
-
-          <button
-            class="lang-btn"
-            data-lang="az"
-            onclick="changeLanguage('az', event)">
-            AZ
-          </button>
-
-          <button
-            class="lang-btn"
-            data-lang="ru"
-            onclick="changeLanguage('ru', event)">
-            RU
-          </button>
-
-          <button
-            class="lang-btn"
-            data-lang="en"
-            onclick="changeLanguage('en', event)">
-            EN
-          </button>
+            <!-- Кнопка BAR -->
+            <button
+                class="choice-button bar-button"
+                onclick="openBar()"
+                aria-label="Bar">
+            </button>
 
         </div>
-      </div>
 
-    </div>
-
-    <input
-      id="search-input"
-      class="search-box"
-      type="search"
-      autocomplete="off"
-      oninput="renderMenu()"
-      placeholder="Menyuda axtar...">
-
-  </header>
+    </section>
 
 
-  <div
-    class="categories-scroll"
-    id="categories-container">
-  </div>
+    <!-- =====================
+         SCREEN 3 — MENU
+    ====================== -->
+
+    <section id="menu" class="screen">
+
+        <div class="menu-inner">
+
+            <div class="menu-header">
+
+                <div class="menu-logo">
+                    Le Buffet
+                </div>
+
+                <div class="menu-subtitle">
+                    BISTRO · WINE · COFFEE
+                </div>
+
+                <div id="menuTitle" class="menu-title">
+                    MƏTBƏX
+                </div>
+
+                <div id="menuCategoryText" class="menu-category">
+                    LƏZZƏTİN ÜNVANI
+                </div>
+
+            </div>
 
 
-  <main
-    class="menu-items-list"
-    id="menu-container">
-  </main>
+            <button
+                class="back-button"
+                onclick="openChoice()"
+                id="backButton">
+                ← GERİ
+            </button>
+
+
+            <!-- КУХНЯ -->
+
+            <div id="kitchenCategories" class="categories">
+
+                <button class="category" onclick="showDishes('starters')">
+                    <span data-az="Başlanğıclar"
+                          data-ru="Закуски"
+                          data-en="Starters">
+                        Başlanğıclar
+                    </span>
+                </button>
+
+                <button class="category" onclick="showDishes('soups')">
+                    <span data-az="Şorbalar"
+                          data-ru="Супы"
+                          data-en="Soups">
+                        Şorbalar
+                    </span>
+                </button>
+
+                <button class="category" onclick="showDishes('salads')">
+                    <span data-az="Salatlar"
+                          data-ru="Салаты"
+                          data-en="Salads">
+                        Salatlar
+                    </span>
+                </button>
+
+                <button class="category" onclick="showDishes('sandwiches')">
+                    <span data-az="Sendviçlər və səhər yeməkləri"
+                          data-ru="Сэндвичи и завтраки"
+                          data-en="Sandwiches & Breakfast">
+                        Sendviçlər və səhər yeməkləri
+                    </span>
+                </button>
+
+                <button class="category" onclick="showDishes('pasta')">
+                    <span data-az="Pasta və qarnir"
+                          data-ru="Паста и гарниры"
+                          data-en="Pasta & Garnish">
+                        Pasta və qarnir
+                    </span>
+                </button>
+
+                <button class="category" onclick="showDishes('poultry')">
+                    <span data-az="Quş əti"
+                          data-ru="Птица"
+                          data-en="Poultry">
+                        Quş əti
+                    </span>
+                </button>
+
+                <button class="category" onclick="showDishes('meat')">
+                    <span data-az="Ət yeməkləri"
+                          data-ru="Мясные блюда"
+                          data-en="Meat">
+                        Ət yeməkləri
+                    </span>
+                </button>
+
+                <button class="category" onclick="showDishes('seafood')">
+                    <span data-az="Dəniz məhsulları"
+                          data-ru="Морепродукты"
+                          data-en="Seafood">
+                        Dəniz məhsulları
+                    </span>
+                </button>
+
+                <button class="category" onclick="showDishes('desserts')">
+                    <span data-az="Desertlər və isti içkilər"
+                          data-ru="Десерты и горячие напитки"
+                          data-en="Desserts & Hot Drinks">
+                        Desertlər və isti içkilər
+                    </span>
+                </button>
+
+            </div>
+
+
+            <!-- BAR -->
+
+            <div id="barCategories"
+                 class="categories"
+                 style="display:none;">
+
+                <button class="category" onclick="showDishes('soft')">
+                    <span data-az="Alkoqolsuz içkilər"
+                          data-ru="Безалкогольные напитки"
+                          data-en="Soft Drinks">
+                        Alkoqolsuz içkilər
+                    </span>
+                </button>
+
+                <button class="category" onclick="showDishes('beer')">
+                    <span data-az="Pivə"
+                          data-ru="Пиво"
+                          data-en="Beer">
+                        Pivə
+                    </span>
+                </button>
+
+                <button class="category" onclick="showDishes('wine')">
+                    <span data-az="Şərab"
+                          data-ru="Вино"
+                          data-en="Wine">
+                        Şərab
+                    </span>
+                </button>
+
+                <button class="category" onclick="showDishes('strong')">
+                    <span data-az="Güclü içkilər"
+                          data-ru="Крепкие напитки"
+                          data-en="Spirits">
+                        Güclü içkilər
+                    </span>
+                </button>
+
+                <button class="category" onclick="showDishes('cocktails')">
+                    <span data-az="Kokteyllər"
+                          data-ru="Коктейли"
+                          data-en="Cocktails">
+                        Kokteyllər
+                    </span>
+                </button>
+
+            </div>
+
+
+            <!-- DISHES -->
+
+            <div id="dishes" class="dishes"></div>
+
+        </div>
+
+        <button
+            class="home-button"
+            onclick="openChoice()"
+            aria-label="Home">
+            ⌂
+        </button>
+
+    </section>
 
 </div>
 
 
-<div
-  class="service-footer"
-  id="service-footer">
-  SERVİS HAQQI 10%
-</div>
+<script>
 
-  </section></div><!-- =====================================
-     DISH DETAIL MODAL
-====================================== --><div
-  id="dish-modal"
-  class="modal"
-  onclick="closeModalOutside(event)">  <div
-    id="modal-body"
-    class="modal-content">
-  </div></div><script>
+/* =====================================================
+   LANGUAGE
+===================================================== */
 
-  /* =====================================
-     APPLICATION STATE
-  ====================================== */
+let currentLanguage = "az";
 
-  let currentLang = "az";
-  let currentType = "kitchen";
-  let currentCategory = "all";
-
-
-  /* =====================================
-     TRANSLATIONS
-  ====================================== */
-
-  const translations = {
+const translations = {
 
     az: {
-      continue: "Davam etmək üçün toxunun",
-      back: "← Geri",
-      search: "Menyuda axtar...",
-      service: "SERVİS HAQQI 10%",
-      close: "Bağla",
-      minutes: "dəq.",
-      noResults: "Heç bir məhsul tapılmadı."
+        cta: "DAVAM ETMƏK ÜÇÜN TOXUNUN",
+        kitchen: "MƏTBƏX",
+        kitchenSub: "LƏZZƏTİN ÜNVANI",
+        bar: "BAR",
+        barSub: "QƏDƏHDƏKİ HEKAYƏ",
+        back: "← GERİ"
     },
 
     ru: {
-      continue: "Нажмите, чтобы продолжить",
-      back: "← Назад",
-      search: "Поиск в меню...",
-      service: "СЕРВИСНЫЙ СБОР 10%",
-      close: "Закрыть",
-      minutes: "мин.",
-      noResults: "Ничего не найдено."
+        cta: "НАЖМИТЕ, ЧТОБЫ ПРОДОЛЖИТЬ",
+        kitchen: "КУХНЯ",
+        kitchenSub: "АДРЕС ВКУСА",
+        bar: "БАР",
+        barSub: "ИСТОРИЯ В БОКАЛЕ",
+        back: "← НАЗАД"
     },
 
     en: {
-      continue: "Tap to continue",
-      back: "← Back",
-      search: "Search menu...",
-      service: "SERVICE CHARGE 10%",
-      close: "Close",
-      minutes: "min.",
-      noResults: "No items found."
+        cta: "TAP TO CONTINUE",
+        kitchen: "KITCHEN",
+        kitchenSub: "FROM FIRE TO TABLE",
+        bar: "BAR",
+        barSub: "SIP THE STORY",
+        back: "← BACK"
     }
-
-  };
-
-
-  /* =====================================
-     MENU DATA
-  ====================================== */
-
-  const menu = [
-
-    {
-      id: 1,
-      type: "kitchen",
-      category: "salads",
-
-      name: {
-        az: "Klassik Sezar salatı",
-        ru: "Классический салат Цезарь",
-        en: "Classic Caesar Salad"
-      },
-
-      ingredients: {
-        az: "Toyuq filesi, romaine salatı, kərəviz, parmesan",
-        ru: "Куриное филе, салат ромэн, сельдерей, пармезан",
-        en: "Chicken fillet, romaine lettuce, celery, parmesan"
-      },
-
-      price: 14.90,
-      time: 15,
-      image: "675.png"
-    },
+};
 
 
-    {
-      id: 2,
-      type: "kitchen",
-      category: "salads",
+/* =====================================================
+   LANGUAGE SWITCH
+===================================================== */
 
-      name: {
-        az: "Karidesli salat",
-        ru: "Салат с креветками",
-        en: "Shrimp Salad"
-      },
+function setLanguage(lang) {
 
-      ingredients: {
-        az: "Karides, kərəviz, avokado",
-        ru: "Креветки, сельдерей, авокадо",
-        en: "Shrimp, celery, avocado"
-      },
-
-      price: 18.50,
-      time: 12,
-      image: "683.png"
-    },
-
-
-    {
-      id: 3,
-      type: "kitchen",
-      category: "soups",
-
-      name: {
-        az: "Kərəviz şorbası",
-        ru: "Суп из сельдерея",
-        en: "Celery Soup"
-      },
-
-      ingredients: {
-        az: "Tərəvəz, kərəviz, qaymaq",
-        ru: "Овощи, сельдерей, сливки",
-        en: "Vegetables, celery, cream"
-      },
-
-      price: 7.50,
-      time: 20,
-      image: "683.png"
-    },
-
-
-    {
-      id: 4,
-      type: "kitchen",
-      category: "breakfasts",
-
-      name: {
-        az: "Səhər yeməyi dəsti",
-        ru: "Завтрак сет",
-        en: "Breakfast Set"
-      },
-
-      ingredients: {
-        az: "Yumurta, pendir, zeytun, yağ, bal",
-        ru: "Яйца, сыр, оливки, масло, мёд",
-        en: "Eggs, cheese, olives, butter, honey"
-      },
-
-      price: 12.00,
-      time: 10,
-      image: "681.png"
-    },
-
-
-    {
-      id: 5,
-      type: "bar",
-      category: "cocktails",
-
-      name: {
-        az: "Aperol Spritz",
-        ru: "Апероль Спритц",
-        en: "Aperol Spritz"
-      },
-
-      ingredients: {
-        az: "Aperol, prosecco, portağal",
-        ru: "Апероль, просекко, апельсин",
-        en: "Aperol, prosecco, orange"
-      },
-
-      price: 14.90,
-      time: 5,
-      image: "677.png"
-    },
-
-
-    {
-      id: 6,
-      type: "bar",
-      category: "cocktails",
-
-      name: {
-        az: "Mojito",
-        ru: "Мохито",
-        en: "Mojito"
-      },
-
-      ingredients: {
-        az: "Rom, laym, nanə",
-        ru: "Ром, лайм, мята",
-        en: "Rum, lime, mint"
-      },
-
-      price: 12.90,
-      time: 5,
-      image: "676.png"
-    },
-
-
-    {
-      id: 7,
-      type: "bar",
-      category: "coffee",
-
-      name: {
-        az: "Espresso",
-        ru: "Эспрессо",
-        en: "Espresso"
-      },
-
-      ingredients: {
-        az: "Təbii kofe dənələri",
-        ru: "Натуральные кофейные зёрна",
-        en: "Natural coffee beans"
-      },
-
-      price: 4.50,
-      time: 3,
-      image: "681.png"
-    }
-
-  ];
-
-
-  /* =====================================
-     CATEGORIES
-  ====================================== */
-
-  const categoriesMap = {
-
-    kitchen: [
-
-      {
-        id: "all",
-        name: {
-          az: "Hamısı",
-          ru: "Все",
-          en: "All"
-        }
-      },
-
-      {
-        id: "breakfasts",
-        name: {
-          az: "Səhər yeməkləri",
-          ru: "Завтраки",
-          en: "Breakfasts"
-        }
-      },
-
-      {
-        id: "soups",
-        name: {
-          az: "Şorbalar",
-          ru: "Супы",
-          en: "Soups"
-        }
-      },
-
-      {
-        id: "salads",
-        name: {
-          az: "Salatlar",
-          ru: "Салаты",
-          en: "Salads"
-        }
-      }
-
-    ],
-
-
-    bar: [
-
-      {
-        id: "all",
-        name: {
-          az: "Hamısı",
-          ru: "Все",
-          en: "All"
-        }
-      },
-
-      {
-        id: "cocktails",
-        name: {
-          az: "Kokteyllər",
-          ru: "Коктейли",
-          en: "Cocktails"
-        }
-      },
-
-      {
-        id: "coffee",
-        name: {
-          az: "Çay / Qəhvə",
-          ru: "Чай / Кофе",
-          en: "Tea / Coffee"
-        }
-      }
-
-    ]
-
-  };
-
-
-  /* =====================================
-     LANGUAGE
-  ====================================== */
-
-  function changeLanguage(lang, event) {
-
-    if (event) {
-      event.stopPropagation();
-    }
-
-    if (!translations[lang]) {
-      return;
-    }
-
-    currentLang = lang;
+    currentLanguage = lang;
 
     document.documentElement.lang = lang;
 
-    document.querySelectorAll(".lang-btn").forEach(button => {
-
-      const buttonLang = button.dataset.lang;
-
-      button.classList.toggle(
-        "active",
-        buttonLang === currentLang
-      );
-
-    });
-
-    updateInterface();
-
-  }
-
-
-  function updateInterface() {
-
-    const t = translations[currentLang];
-
-    document.getElementById("touch-hint").textContent =
-      t.continue;
-
-    document.getElementById("back-button").textContent =
-      t.back;
-
-    document.getElementById("search-input").placeholder =
-      t.search;
-
-    document.getElementById("service-footer").textContent =
-      t.service;
-
-    renderCategories();
-    renderMenu();
-
-  }
-
-
-  /* =====================================
-     SCREEN NAVIGATION
-  ====================================== */
-
-  function goToChoice(event) {
-
-    if (event) {
-      event.stopPropagation();
-    }
-
-    document
-      .getElementById("splash-screen")
-      .classList.remove("active");
-
-    document
-      .getElementById("choice-screen")
-      .classList.add("active");
-
-  }
-
-
-  function goBack(event) {
-
-    if (event) {
-      event.stopPropagation();
-    }
-
-    document
-      .getElementById("menu-screen")
-      .classList.remove("active");
-
-    document
-      .getElementById("choice-screen")
-      .classList.add("active");
-
-  }
-
-
-  function openMenu(type, event) {
-
-    if (event) {
-      event.stopPropagation();
-    }
-
-    if (type !== "kitchen" && type !== "bar") {
-      return;
-    }
-
-    currentType = type;
-    currentCategory = "all";
-
-    const search = document.getElementById("search-input");
-
-    if (search) {
-      search.value = "";
-    }
-
-    document
-      .getElementById("choice-screen")
-      .classList.remove("active");
-
-    document
-      .getElementById("menu-screen")
-      .classList.add("active");
-
-    renderCategories();
-    renderMenu();
-
-  }
-
-
-  /* =====================================
-     CATEGORIES RENDER
-  ====================================== */
-
-  function renderCategories() {
-
-    const container =
-      document.getElementById("categories-container");
-
-    if (!container) {
-      return;
-    }
-
-    container.innerHTML = "";
-
-    const categories =
-      categoriesMap[currentType] || [];
-
-    categories.forEach(category => {
-
-      const chip =
-        document.createElement("button");
-
-      chip.type = "button";
-
-      chip.className =
-        "cat-chip" +
-        (currentCategory === category.id
-          ? " active"
-          : "");
-
-      chip.textContent =
-        category.name[currentLang];
-
-      chip.onclick = function(event) {
-
-        event.stopPropagation();
-
-        currentCategory =
-          category.id;
-
-        renderCategories();
-        renderMenu();
-
-      };
-
-      container.appendChild(chip);
-
-    });
-
-  }
-
-
-  /* =====================================
-     MENU RENDER
-  ====================================== */
-
-  function renderMenu() {
-
-    const container =
-      document.getElementById("menu-container");
-
-    if (!container) {
-      return;
-    }
-
-    container.innerHTML = "";
-
-    const searchElement =
-      document.getElementById("search-input");
-
-    const searchValue =
-      searchElement
-        ? searchElement.value.trim().toLowerCase()
-        : "";
-
-    const filtered =
-      menu.filter(item => {
-
-        const typeMatch =
-          item.type === currentType;
-
-        const categoryMatch =
-          currentCategory === "all" ||
-          item.category === currentCategory;
-
-        const name =
-          item.name[currentLang] || "";
-
-        const ingredients =
-          item.ingredients[currentLang] || "";
-
-        const searchMatch =
-          !searchValue ||
-          name.toLowerCase().includes(searchValue) ||
-          ingredients.toLowerCase().includes(searchValue);
-
-        return (
-          typeMatch &&
-          categoryMatch &&
-          searchMatch
-        );
-
-      });
-
-
-    if (filtered.length === 0) {
-
-      const empty =
-        document.createElement("div");
-
-      empty.className =
-        "empty-message";
-
-      empty.textContent =
-        translations[currentLang].noResults;
-
-      container.appendChild(empty);
-
-      return;
-    }
-
-
-    filtered.forEach(item => {
-
-      const card =
-        document.createElement("article");
-
-      card.className =
-        "food-card";
-
-      card.onclick = function() {
-        openDishModal(item.id);
-      };
-
-
-      const image =
-        document.createElement("img");
-
-      image.className =
-        "food-img";
-
-      image.src =
-        item.image;
-
-      image.alt =
-        item.name[currentLang];
-
-      image.loading =
-        "lazy";
-
-      image.onerror =
-        function() {
-          this.style.visibility = "hidden";
-        };
-
-
-      const info =
-        document.createElement("div");
-
-      info.className =
-        "food-info";
-
-
-      const title =
-        document.createElement("div");
-
-      title.className =
-        "food-title";
-
-      title.textContent =
-        item.name[currentLang];
-
-
-      const description =
-        document.createElement("div");
-
-      description.className =
-        "food-desc";
-
-      description.textContent =
-        item.ingredients[currentLang];
-
-
-      const bottom =
-        document.createElement("div");
-
-      bottom.className =
-        "food-bottom";
-
-
-      const price =
-        document.createElement("span");
-
-      price.className =
-        "food-price";
-
-      price.textContent =
-        formatPrice(item.price);
-
-
-      const time =
-        document.createElement("span");
-
-      time.className =
-        "food-time";
-
-      time.textContent =
-        "◷ " +
-        item.time +
-        " " +
-        translations[currentLang].minutes;
-
-
-      bottom.appendChild(price);
-      bottom.appendChild(time);
-
-      info.appendChild(title);
-      info.appendChild(description);
-      info.appendChild(bottom);
-
-      card.appendChild(image);
-      card.appendChild(info);
-
-      container.appendChild(card);
-
-    });
-
-  }
-
-
-  /* =====================================
-     PRICE
-  ====================================== */
-
-  function formatPrice(price) {
-
-    return Number(price)
-      .toFixed(2)
-      .replace(".", ",") +
-      " ₼";
-
-  }
-
-
-  /* =====================================
-     DISH MODAL
-  ====================================== */
-
-  function openDishModal(id) {
-
-    const item =
-      menu.find(menuItem => menuItem.id === id);
-
-    if (!item) {
-      return;
-    }
-
-    const modal =
-      document.getElementById("dish-modal");
-
-    const body =
-      document.getElementById("modal-body");
-
-
-    body.innerHTML = "";
-
-
-    const image =
-      document.createElement("img");
-
-    image.className =
-      "modal-img";
-
-    image.src =
-      item.image;
-
-    image.alt =
-      item.name[currentLang];
-
-
-    const title =
-      document.createElement("h2");
-
-    title.className =
-      "modal-title";
-
-    title.textContent =
-      item.name[currentLang];
-
-
-    const description =
-      document.createElement("p");
-
-    description.className =
-      "modal-description";
-
-    description.textContent =
-      item.ingredients[currentLang];
-
-
-    const price =
-      document.createElement("div");
-
-    price.className =
-      "modal-price";
-
-    price.textContent =
-      formatPrice(item.price);
-
-
-    const close =
-      document.createElement("button");
-
-    close.type =
-      "button";
-
-    close.className =
-      "close-btn";
-
-    close.textContent =
-      translations[currentLang].close;
-
-    close.onclick =
-      closeDishModal;
-
-
-    body.appendChild(image);
-    body.appendChild(title);
-    body.appendChild(description);
-    body.appendChild(price);
-    body.appendChild(close);
-
-
-    modal.classList.add("active");
-
-  }
-
-
-  function closeDishModal(event) {
-
-    if (event) {
-      event.stopPropagation();
-    }
-
-    document
-      .getElementById("dish-modal")
-      .classList.remove("active");
-
-  }
-
-
-  function closeModalOutside(event) {
-
-    if (
-      event.target.id === "dish-modal"
-    ) {
-      closeDishModal();
-    }
-
-  }
-
-
-  /* =====================================
-     STOP EVENT
-  ====================================== */
-
-  function stopEvent(event) {
-
-    if (event) {
-      event.stopPropagation();
-    }
-
-  }
-
-
-  /* =====================================
-     INITIALIZATION
-  ====================================== */
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-      updateInterface();
-
-      /*
-        Only the cover opens the category screen.
-        Clicking AZ/RU/EN does NOT open it.
-      */
-
-      document
-        .getElementById("splash-screen")
-        .addEventListener("click", function(event) {
-
-          if (
-            event.target.closest(".language-switcher")
-          ) {
-            return;
-          }
-
-          goToChoice(event);
-
+    document.getElementById("coverCTA").textContent =
+        translations[lang].cta;
+
+    document.getElementById("backButton").textContent =
+        translations[lang].back;
+
+    document.querySelectorAll("[data-" + lang + "]")
+        .forEach(element => {
+            element.textContent =
+                element.getAttribute("data-" + lang);
         });
 
 
-      /*
-        Close modal with Android/iPhone back gesture
-        where supported.
-      */
+    const buttons = [
+        "langAZ",
+        "langRU",
+        "langEN",
+        "choiceAZ",
+        "choiceRU",
+        "choiceEN"
+    ];
 
-      document.addEventListener(
-        "keydown",
-        function(event) {
+    buttons.forEach(id => {
+        document.getElementById(id)
+            ?.classList.remove("active");
+    });
 
-          if (event.key === "Escape") {
-            closeDishModal();
-          }
+    document.getElementById(
+        lang === "az" ? "langAZ" :
+        lang === "ru" ? "langRU" : "langEN"
+    )?.classList.add("active");
 
+    document.getElementById(
+        lang === "az" ? "choiceAZ" :
+        lang === "ru" ? "choiceRU" : "choiceEN"
+    )?.classList.add("active");
+
+
+    updateMenuLanguage();
+}
+
+
+/* =====================================================
+   SCREEN NAVIGATION
+===================================================== */
+
+function showScreen(id) {
+
+    document.querySelectorAll(".screen")
+        .forEach(screen => {
+            screen.classList.remove("active");
+        });
+
+    document.getElementById(id)
+        .classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "instant"
+    });
+}
+
+
+function openChoice() {
+
+    showScreen("choice");
+}
+
+
+function openKitchen() {
+
+    document.getElementById("menuTitle").textContent =
+        translations[currentLanguage].kitchen;
+
+    document.getElementById("menuCategoryText").textContent =
+        translations[currentLanguage].kitchenSub;
+
+    document.getElementById("kitchenCategories").style.display =
+        "flex";
+
+    document.getElementById("barCategories").style.display =
+        "none";
+
+    document.getElementById("dishes").classList.remove("active");
+
+    showScreen("menu");
+}
+
+
+function openBar() {
+
+    document.getElementById("menuTitle").textContent =
+        translations[currentLanguage].bar;
+
+    document.getElementById("menuCategoryText").textContent =
+        translations[currentLanguage].barSub;
+
+    document.getElementById("kitchenCategories").style.display =
+        "none";
+
+    document.getElementById("barCategories").style.display =
+        "flex";
+
+    document.getElementById("dishes").classList.remove("active");
+
+    showScreen("menu");
+}
+
+
+/* =====================================================
+   MENU DATA
+===================================================== */
+
+const menuData = {
+
+    starters: [
+        {
+            az: "Başlanğıc",
+            ru: "Закуска",
+            en: "Starter",
+            price: ""
         }
-      );
+    ],
 
+    soups: [
+        {
+            az: "Şorba",
+            ru: "Суп",
+            en: "Soup",
+            price: ""
+        }
+    ],
+
+    salads: [
+        {
+            az: "Salat",
+            ru: "Салат",
+            en: "Salad",
+            price: ""
+        }
+    ],
+
+    sandwiches: [
+        {
+            az: "Sendviç",
+            ru: "Сэндвич",
+            en: "Sandwich",
+            price: ""
+        }
+    ],
+
+    pasta: [
+        {
+            az: "Pasta",
+            ru: "Паста",
+            en: "Pasta",
+            price: ""
+        }
+    ],
+
+    poultry: [
+        {
+            az: "Quş əti yeməyi",
+            ru: "Блюдо из птицы",
+            en: "Poultry dish",
+            price: ""
+        }
+    ],
+
+    meat: [
+        {
+            az: "Ət yeməyi",
+            ru: "Мясное блюдо",
+            en: "Meat dish",
+            price: ""
+        }
+    ],
+
+    seafood: [
+        {
+            az: "Dəniz məhsulu",
+            ru: "Морепродукты",
+            en: "Seafood",
+            price: ""
+        }
+    ],
+
+    desserts: [
+        {
+            az: "Desert",
+            ru: "Десерт",
+            en: "Dessert",
+            price: ""
+        }
+    ],
+
+    soft: [
+        {
+            az: "Alkoqolsuz içki",
+            ru: "Безалкогольный напиток",
+            en: "Soft drink",
+            price: ""
+        }
+    ],
+
+    beer: [
+        {
+            az: "Pivə",
+            ru: "Пиво",
+            en: "Beer",
+            price: ""
+        }
+    ],
+
+    wine: [
+        {
+            az: "Şərab",
+            ru: "Вино",
+            en: "Wine",
+            price: ""
+        }
+    ],
+
+    strong: [
+        {
+            az: "Güclü içki",
+            ru: "Крепкий напиток",
+            en: "Spirit",
+            price: ""
+        }
+    ],
+
+    cocktails: [
+        {
+            az: "Kokteyl",
+            ru: "Коктейль",
+            en: "Cocktail",
+            price: ""
+        }
+    ]
+};
+
+
+/* =====================================================
+   SHOW DISHES
+===================================================== */
+
+function showDishes(category) {
+
+    const container =
+        document.getElementById("dishes");
+
+    const categoriesKitchen =
+        document.getElementById("kitchenCategories");
+
+    const categoriesBar =
+        document.getElementById("barCategories");
+
+    categoriesKitchen.style.display = "none";
+    categoriesBar.style.display = "none";
+
+    container.innerHTML = "";
+
+    const dishes = menuData[category] || [];
+
+    dishes.forEach(dish => {
+
+        const item =
+            document.createElement("div");
+
+        item.className = "dish";
+
+        const info =
+            document.createElement("div");
+
+        info.className = "dish-info";
+
+        const name =
+            document.createElement("div");
+
+        name.className = "dish-name";
+
+        name.textContent =
+            dish[currentLanguage];
+
+        info.appendChild(name);
+
+        const price =
+            document.createElement("div");
+
+        price.className = "dish-price";
+
+        price.textContent =
+            dish.price;
+
+        item.appendChild(info);
+        item.appendChild(price);
+
+        container.appendChild(item);
+    });
+
+    container.classList.add("active");
+}
+
+
+/* =====================================================
+   UPDATE LANGUAGE INSIDE DISHES
+===================================================== */
+
+function updateMenuLanguage() {
+
+    const title =
+        document.getElementById("menuTitle");
+
+    if (!title) return;
+
+    const text =
+        title.textContent;
+
+    if (
+        text === "MƏTBƏX" ||
+        text === "КУХНЯ" ||
+        text === "KITCHEN"
+    ) {
+
+        title.textContent =
+            translations[currentLanguage].kitchen;
+
+        document.getElementById(
+            "menuCategoryText"
+        ).textContent =
+            translations[currentLanguage].kitchenSub;
+
+    } else if (
+        text === "BAR"
+    ) {
+
+        title.textContent =
+            translations[currentLanguage].bar;
+
+        document.getElementById(
+            "menuCategoryText"
+        ).textContent =
+            translations[currentLanguage].barSub;
     }
-  );
 
-</script></body>
+    document.querySelectorAll(".dish-name")
+        .forEach((element, index) => {
+
+            /* Re-rendering happens when a category
+               is opened again. */
+        });
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+setLanguage("az");
+
+</script>
+
+</body>
 </html>
